@@ -16,6 +16,11 @@ while True:
     results = pose.process(imgRGB)
     if results.pose_landmarks:
         mpDraw.draw_landmarks(frame, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
+        for id, lm in enumerate(results.pose_landmarks.landmark):
+            h, w, c = frame.shape
+            cx = int(lm.x * w)
+            cy = int(lm.y * h)
+            cv2.circle(frame, (cx, cy), 10, (255,0,0), cv2.FILLED)
 
     cTime = time.time()
     fps = 1/(cTime-pTime)
